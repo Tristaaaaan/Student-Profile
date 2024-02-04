@@ -1,0 +1,141 @@
+# First Window
+
+<ElementCard>:
+    padding: 15
+    spacing: 20
+    radius: [20]
+    ripple_behavior: True
+    size_hint: 1, None
+    height: '225dp'
+    image: ''
+    text: ''
+    orientation:'vertical'
+    pos_hint: {'center_x':.5}
+
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        Image:
+            source: root.image
+
+        MDBoxLayout:
+            padding: 10
+            spacing: 15
+            size_hint_y: None
+            height: self.minimum_height
+            MDLabel:
+                halign:"center"
+                text: root.text
+
+<HomePage>:
+    name: "home"
+
+    MDBoxLayout:
+        md_bg_color: 'white'
+        size_hint: 1, 1
+        orientation: 'vertical'
+        padding: [0, 125, 0, 0]
+        MDBoxLayout:
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            orientation: 'vertical'
+            spacing: 15
+            padding: [0, 0, 0, 25]
+            size_hint: .9, None
+            adaptive_height: True
+            
+            MDLabel:
+                id: name
+                text: 'Student Name'
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                halign: 'center'
+
+            MDLabel:
+                id: grade
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                text: 'Grade, Level'
+
+                halign: 'center'
+
+            MDLabel:
+                id: classname
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                text: 'Grade, Level'
+
+                halign: 'center'
+
+            MDLabel:
+                id: school
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                text: 'School'
+                halign: 'center'
+
+        ScrollView:
+            do_scroll_y: True
+            size_hint_y: 1
+            do_scroll_x: False
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+            MDBoxLayout:
+
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                padding: 10
+                height: self.minimum_height
+                size_hint: 1, None
+                GridLayout:
+                    cols: 2
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    size_hint: .9, None
+                    spacing: 10
+                    height: self.minimum_height
+                    md_bg_color: 'grey'
+
+                    ElementCard:
+                        id: achievements
+                        image:"./assets/icons/achievements.png"
+                        text: "Achievements"
+                        on_release:
+                            root.viewDetails(achievements)
+
+                    ElementCard:
+                        id: community_service
+                        image:"./assets/icons/community_service.png"
+                        text: "Community Service"
+                        on_release:
+                            root.viewDetails(community_service)
+
+                    ElementCard:
+                        id: clubs
+                        image:"./assets/icons/clubs.png"
+                        text: "Clubs"
+                        on_release:
+                            root.viewDetails(clubs)
+
+                    ElementCard:
+                        id: sports
+                        image:"./assets/icons/sports.png"
+                        text: "Sports"
+                        on_release:
+                            root.viewDetails(sports)
+
+                    ElementCard:
+                        id: classes
+                        image:"./assets/icons/classes.png"
+                        text: "Classes"
+                        on_release:
+                            root.viewDetails(classes)
+
+                    ElementCard:
+                        id: arts
+                        image:"./assets/icons/arts.png"
+                        text: "Arts"
+                        on_release:
+                            root.viewDetails(arts)
+

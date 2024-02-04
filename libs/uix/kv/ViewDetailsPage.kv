@@ -1,0 +1,264 @@
+# View Details Page
+
+<AddItemDialog>:
+    size_hint: .9, None
+    adaptive_height: True
+
+    MDDialogHeadlineText:
+        id: category
+        text: 'Want to add a porfolio?'
+        halign: 'left'
+
+    MDDialogSupportingText:
+        text: 'Improve your portfolio by adding the information required. Make sure the text fields are filled in correctly.'
+        halign: 'left'
+
+    MDDialogContentContainer:
+        adaptive_height: True
+        orientation: 'vertical'
+        spacing: 30
+
+        MDLabel:
+            text: "Title"
+            halign: "left"
+            font_style: 'Body'
+            role: 'medium'
+
+
+        MDTextField:
+            mode: "outlined"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            multiline: True
+            id: title
+
+            MDTextFieldMaxLengthText:
+                max_text_length: 55
+
+        MDLabel:
+            text: "Description"
+            halign: "left"
+            font_style: 'Body'
+            role: 'medium'
+
+            
+        MDTextField:
+            mode: "outlined"
+            multiline: True
+            pos_hint: {"center_x": .5, "center_y": .5}
+            id: description
+
+            MDTextFieldMaxLengthText:
+                max_text_length: 255
+
+    MDDialogButtonContainer:
+        spacing: 10
+
+        MDWidget:
+        
+        MDButton:
+            style: "tonal"
+            on_release:
+                root.removeAddItemDialog()
+
+            MDButtonText:
+                text: "Cancel"
+
+        MDButton:
+            style: "tonal"
+            on_release:
+                app.root.view.saveAddItemDialog(title, description, root.category) #; root.closeAddItemDialog()
+
+            MDButtonText:
+                text: "Save"
+
+<UpdateItemDialog>:
+    size_hint: .9, None
+    adaptive_height: True
+
+    MDDialogHeadlineText:
+        text: 'Want to update your portfolio?'
+        halign: 'left'
+
+    MDDialogSupportingText:
+        text: 'Make sure the text fields are filled in correctly.'
+        halign: 'left'
+
+    MDDialogContentContainer:
+        adaptive_height: True
+        orientation: 'vertical'
+        spacing: 30
+
+        MDLabel:
+            text: "Title"
+            halign: "left"
+            font_style: 'Body'
+            role: 'medium'
+
+        MDTextField:
+            size_hint_x: 1
+            mode: "outlined"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            multiline: True
+            id: title
+
+
+            MDTextFieldMaxLengthText:
+                max_text_length: 55
+
+            MDTextFieldHelperText:
+                text: "Helper text"
+                mode: "persistent"
+
+        MDLabel:
+            text: "Description"
+            halign: "left"
+            font_style: 'Body'
+            role: 'medium'
+
+        MDTextField:
+            mode: "outlined"
+            multiline: True
+            pos_hint: {"center_x": .5, "center_y": .5}
+            id: description
+
+            MDTextFieldMaxLengthText:
+                max_text_length: 255
+                        
+            MDTextFieldHelperText:
+                text: "Helper text"
+                mode: "persistent"
+
+    MDDialogButtonContainer:
+        spacing: 10
+        MDWidget:
+
+        MDButton:
+            style: "tonal"
+            on_release:
+                root.closeAddItemDialog()
+
+            MDButtonText:
+                text: "Cancel"
+
+        MDButton:
+            style: "tonal"
+            on_release:
+                app.root.view.saveUpdateItemDialog(title, description, root.category, root.pk) #; root.closeAddItemDialog()
+
+            MDButtonText:
+                text: "Update"
+
+<ItemCard>:
+    size_hint_y: None
+    adaptive_height: True
+    md_bg_color: 'white'
+    padding: [0, 10, 0, 10]
+    divider: 'None'
+
+    MDCard:
+        size_hint: .9, None
+        adaptive_height: True
+        orientation: 'horizontal'
+        padding: [20, 10, 10, 10]
+        radius: [10]
+        on_release:
+            app.root.view.updateItem(root.pk, root.custom_title, root.custom_description)
+
+        MDBoxLayout:
+            size_hint_y: None
+            spacing: 4
+            adaptive_height: True
+            orientation: 'vertical'
+
+            MDLabel:
+                size_hint: 1, None
+                adaptive_height: True
+                text: root.custom_title
+                font_style: 'Body'
+                role: 'large'
+
+            MDLabel:
+                size_hint: 1, None
+                adaptive_height: True
+                text: root.custom_description
+                font_style: 'Body'
+                role: 'small'
+
+        MDAnchorLayout:
+            anchor_y: 'top'
+            anchor_x: 'right'
+            size_hint_x: .25
+            
+            MDIconButton:
+                icon: "trash-can"
+                size_hint_x: None
+                pos_hint: {"center_y": .5}
+                theme_icon_color: 'Custom'
+                icon_color: 'gray'
+                on_release: 
+                    root.validateDeleteItem(root)
+
+<ViewDetailsPage>:
+    name: "view"
+    
+    MDBoxLayout:
+        md_bg_color: 'white'
+        size_hint: 1, 1
+        orientation: 'vertical'
+ 
+        MDBoxLayout:
+            md_bg_color: 'white'
+            size_hint: .9, None
+            height: self.minimum_height
+            padding: [0, 20, 0, 50]
+            pos_hint: {"center_x": .5, "center_y": .5}
+            MDIconButton:
+                pos_hint: {"center_y": .5}
+                icon: "chevron-left"
+                style: "tonal"
+                on_release:
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+        MDBoxLayout:
+            size_hint: .9, None
+            height: self.minimum_height
+            padding: [5, 5, 5, 25]
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDLabel:
+                id: category
+                font_style: 'Title'
+                role: 'medium'
+                halign: 'left'
+                valign: 'center'
+
+            MDAnchorLayout:
+                anchor_x: 'right'
+                size_hint_y: 1
+                anchor_y: 'center'
+
+                MDIconButton:
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    icon: "star-plus"
+                    style: "tonal"
+                    on_release:
+                        root.addItem()
+
+
+        # List
+        MDBoxLayout:
+            size_hint: .9, 1
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            ScrollView:
+
+                MDList:
+                    index: 1
+                    id: container
+                    padding: 0
+
+            
+
+
+            
