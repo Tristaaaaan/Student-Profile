@@ -6,7 +6,7 @@
     radius: [20]
     ripple_behavior: True
     size_hint: 1, None
-    height: '225dp'
+    height: '250dp'
     image: ''
     text: ''
     orientation:'vertical'
@@ -14,18 +14,29 @@
 
     MDBoxLayout:
         orientation: 'vertical'
-
+        padding: [0, 20, 0, 20]
+        spacing: 10
         Image:
             source: root.image
+            fit_mode: 'scale-down'
+            size: dp(50), dp(50) 
 
         MDBoxLayout:
             padding: 10
             spacing: 15
-            size_hint_y: None
-            height: self.minimum_height
+            size_hint: 1, None
+            orientation: 'horizontal'
+            adaptive_height: True
+
             MDLabel:
-                halign:"center"
+                halign:"left"
                 text: root.text
+                size_hint_x: 1
+
+            MDLabel:
+                halign: 'right'
+                size_hint_x: .1
+                text: root.numberofContent
 
 <HomePage>:
     name: "home"
@@ -34,66 +45,101 @@
         md_bg_color: 'white'
         size_hint: 1, 1
         orientation: 'vertical'
-        padding: [0, 125, 0, 0]
+
         MDBoxLayout:
             pos_hint: {'center_x': .5, 'center_y': .5}
             orientation: 'vertical'
             spacing: 15
-            padding: [0, 0, 0, 25]
+            padding: [0, 30, 0, 0]
             size_hint: .9, None
             adaptive_height: True
-            
-            MDLabel:
-                id: name
-                text: 'Student Name'
-                size_hint_y: None
-                height: self.texture_size[1]
-                text_size: self.width, None
-                halign: 'center'
 
-            MDLabel:
-                id: grade
-                size_hint_y: None
-                height: self.texture_size[1]
-                text_size: self.width, None
-                text: 'Grade, Level'
+            MDBoxLayout:
+                id: image_background
+                pos_hint: {"center_x": .5, "center_y": .5}
+                size_hint: 1, None
+                height: '200dp'
 
-                halign: 'center'
+                Image:
+                    id: profileImage  
+                    source: ''
+                    fit_mode: 'fill'
+    
 
-            MDLabel:
-                id: classname
-                size_hint_y: None
-                height: self.texture_size[1]
-                text_size: self.width, None
-                text: 'Grade, Level'
+        MDBoxLayout:
+            orientation: 'vertical'
+            pos_hint: {"center_x": .5, "center_y": .5}
+            size_hint: .9, None
+            padding: [0, 10, 0, 10]
+            adaptive_height: True
 
-                halign: 'center'
+            MDBoxLayout:
+                orientation: 'horizontal'
+                adaptive_height: True     
+                size_hint: 1, None      
 
-            MDLabel:
-                id: school
-                size_hint_y: None
-                height: self.texture_size[1]
-                text_size: self.width, None
-                text: 'School'
-                halign: 'center'
+                MDLabel:
+                    id: name
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    halign: 'left'
+                    valign: 'center'
+                    font_style: 'Title'
+                    role: 'medium'
+
+                MDLabel:
+                    id: grade
+                    size_hint_y: None
+                    halign: 'right'
+                    height: self.texture_size[1]
+                    valign: 'center'
+                    text_size: self.width, None
+                    halign: 'right'
+                    font_style: 'Title'
+                    role: 'medium'
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+                adaptive_height: True     
+                size_hint: 1, None     
+
+                MDLabel:
+                    id: school
+                    size_hint: None, 7
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    halign: 'left'
+                    valign: 'center'
+                    font_style: 'Title'
+                    role: 'medium'
+
+                MDLabel:
+                    id: classname
+                    halign: 'right'
+                    valign: 'center'
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    font_style: 'Title'
+                    role: 'medium'
 
         ScrollView:
             do_scroll_y: True
-            size_hint_y: 1
             do_scroll_x: False
+            size_hint: .9, 1
             pos_hint: {'center_x': .5, 'center_y': .5}
 
             MDBoxLayout:
-
                 pos_hint: {'center_x': .5, 'center_y': .5}
-                padding: 10
                 height: self.minimum_height
                 size_hint: 1, None
+                
                 GridLayout:
                     cols: 2
                     pos_hint: {'center_x': .5, 'center_y': .5}
-                    size_hint: .9, None
-                    spacing: 10
+                    size_hint: 1, None
+                    spacing: 15
                     height: self.minimum_height
                     md_bg_color: 'grey'
 
@@ -101,6 +147,7 @@
                         id: achievements
                         image:"./assets/icons/achievements.png"
                         text: "Achievements"
+                        numberofContent: ''
                         on_release:
                             root.viewDetails(achievements)
 
@@ -108,6 +155,7 @@
                         id: community_service
                         image:"./assets/icons/community_service.png"
                         text: "Community Service"
+                        numberofContent: ''
                         on_release:
                             root.viewDetails(community_service)
 
@@ -115,6 +163,7 @@
                         id: clubs
                         image:"./assets/icons/clubs.png"
                         text: "Clubs"
+                        numberofContent: ''
                         on_release:
                             root.viewDetails(clubs)
 
@@ -122,6 +171,7 @@
                         id: sports
                         image:"./assets/icons/sports.png"
                         text: "Sports"
+                        numberofContent: ''
                         on_release:
                             root.viewDetails(sports)
 
@@ -129,6 +179,7 @@
                         id: classes
                         image:"./assets/icons/classes.png"
                         text: "Classes"
+                        numberofContent: ''
                         on_release:
                             root.viewDetails(classes)
 
@@ -136,6 +187,7 @@
                         id: arts
                         image:"./assets/icons/arts.png"
                         text: "Arts"
+                        numberofContent: ''
                         on_release:
                             root.viewDetails(arts)
 

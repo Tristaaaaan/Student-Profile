@@ -30,7 +30,7 @@ class ItemCard(MDBoxLayout):
         self.parent.remove_widget(instance)
 
         db.deleteItems(instance.pk, instance.category)
-
+  
         self.closevalidateDeleteItem()
 
 
@@ -38,7 +38,7 @@ class ItemCard(MDBoxLayout):
 
         self.validateDialog = MDDialog(
             MDDialogHeadlineText(
-                text="Want to delete the item?",
+                text=f"Delete {self.category}",
                 halign="left",
             ),
             MDDialogSupportingText(
@@ -59,6 +59,7 @@ class ItemCard(MDBoxLayout):
                 ),
                 spacing="8dp",
             ),
+            size_hint_x=(.9),
         )
         self.validateDialog.open()
     
@@ -70,6 +71,7 @@ class UpdateItemDialog(MDDialog):
     
     update_custom_title = StringProperty()
     update_custom_description = StringProperty()
+    headline_text = StringProperty()
 
     def __init__(self, pk=None, category=None, **kwargs):
         super().__init__(**kwargs)
@@ -80,9 +82,10 @@ class UpdateItemDialog(MDDialog):
         # Add your logic for updating the item in the dialog
     def closeAddItemDialog(self):
         self.dismiss()
-
    
 class AddItemDialog(MDDialog):
+
+    addCategoryItem = StringProperty()
 
     def __init__(self, category=None, **kwargs):
         super().__init__(**kwargs)
@@ -130,7 +133,7 @@ class ViewDetailsPage(Screen):
                     for items in sportItemsDatabase:
                         sportItems = ItemCard(pk=items[0], category=category, custom_title=items[1], custom_description=items[2])
 
-                        self.ids.container.add_widget(sportItems, index=0)
+                        self.ids.container.add_widget(sportItems)
 
 
                 else:
@@ -148,7 +151,7 @@ class ViewDetailsPage(Screen):
 
                     for items in reversed(artsItemsDatabase):
                         artItems = ItemCard(pk=items[0], category=category,custom_title=items[1], custom_description=items[2])
-                        self.ids.container.add_widget(artItems)
+                        self.ids.container.add_widget(artItems, index=4)
 
                 else:
                     print("List is empty")
@@ -228,7 +231,7 @@ class ViewDetailsPage(Screen):
     def addItem(self):
 
         # Create the ModalView
-        self.addItemModalView = AddItemDialog(category=self.ids.category.text)
+        self.addItemModalView = AddItemDialog(category=self.ids.category.text, addCategoryItem=f"Add {self.ids.category.text}")
 
         # Open the ModalView
         self.addItemModalView.open()
@@ -249,9 +252,9 @@ class ViewDetailsPage(Screen):
             # Save the Data
             db.createItem(title.text, description.text, category)
             
-           # self.ids.container.clear_widgets()
+            self.ids.container.clear_widgets()
 
-           # self.getItems(self)
+            self.getItems(self)
 
             self.closesaveAddItemDialog(self.addItemModalView)
 
@@ -282,7 +285,7 @@ class ViewDetailsPage(Screen):
 
         # Create the ModalView
         
-        self.updateItemModalView = UpdateItemDialog(pk=pk, category=self.ids.category.text)
+        self.updateItemModalView = UpdateItemDialog(pk=pk, category=self.ids.category.text, headline_text=f"Update {self.ids.category.text}")
 
         # Access the MDTextField widgets and set their text properties
         self.updateItemModalView.ids.title.text = title

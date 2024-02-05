@@ -6,11 +6,7 @@
 
     MDDialogHeadlineText:
         id: category
-        text: 'Want to add a porfolio?'
-        halign: 'left'
-
-    MDDialogSupportingText:
-        text: 'Improve your portfolio by adding the information required. Make sure the text fields are filled in correctly.'
+        text: root.addCategoryItem
         halign: 'left'
 
     MDDialogContentContainer:
@@ -21,7 +17,7 @@
         MDLabel:
             text: "Title"
             halign: "left"
-            font_style: 'Body'
+            font_style: 'Title'
             role: 'medium'
 
 
@@ -30,14 +26,15 @@
             pos_hint: {"center_x": .5, "center_y": .5}
             multiline: True
             id: title
-
+            font_style: 'Title'
+            role: 'medium'
             MDTextFieldMaxLengthText:
                 max_text_length: 55
 
         MDLabel:
-            text: "Description"
+            text: "Details"
             halign: "left"
-            font_style: 'Body'
+            font_style: 'Title'
             role: 'medium'
 
             
@@ -76,11 +73,8 @@
     adaptive_height: True
 
     MDDialogHeadlineText:
-        text: 'Want to update your portfolio?'
-        halign: 'left'
-
-    MDDialogSupportingText:
-        text: 'Make sure the text fields are filled in correctly.'
+        id: updateHeadLineText
+        text: root.headline_text
         halign: 'left'
 
     MDDialogContentContainer:
@@ -101,7 +95,6 @@
             multiline: True
             id: title
 
-
             MDTextFieldMaxLengthText:
                 max_text_length: 55
 
@@ -110,7 +103,7 @@
                 mode: "persistent"
 
         MDLabel:
-            text: "Description"
+            text: "Details"
             halign: "left"
             font_style: 'Body'
             role: 'medium'
@@ -159,8 +152,8 @@
         size_hint: .9, None
         adaptive_height: True
         orientation: 'horizontal'
-        padding: [20, 10, 10, 10]
-        radius: [10]
+        padding: [20, 40, 10, 40]
+        radius: [20]
         on_release:
             app.root.view.updateItem(root.pk, root.custom_title, root.custom_description)
 
@@ -175,14 +168,14 @@
                 adaptive_height: True
                 text: root.custom_title
                 font_style: 'Body'
-                role: 'large'
+                role: 'medium'
 
             MDLabel:
                 size_hint: 1, None
                 adaptive_height: True
                 text: root.custom_description
                 font_style: 'Body'
-                role: 'small'
+                role: 'large'
 
         MDAnchorLayout:
             anchor_y: 'top'
@@ -212,6 +205,7 @@
             height: self.minimum_height
             padding: [0, 20, 0, 50]
             pos_hint: {"center_x": .5, "center_y": .5}
+            
             MDIconButton:
                 pos_hint: {"center_y": .5}
                 icon: "chevron-left"
@@ -222,14 +216,13 @@
 
         MDBoxLayout:
             size_hint: .9, None
-            height: self.minimum_height
-            padding: [5, 5, 5, 25]
+            adaptive_height: True
             pos_hint: {"center_x": .5, "center_y": .5}
 
             MDLabel:
                 id: category
-                font_style: 'Title'
-                role: 'medium'
+                font_style: 'Headline'
+                role: 'small'
                 halign: 'left'
                 valign: 'center'
 
@@ -254,7 +247,6 @@
             ScrollView:
 
                 MDList:
-                    index: 1
                     id: container
                     padding: 0
 

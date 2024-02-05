@@ -5,6 +5,10 @@ from libs.uix.baseclass import ViewDetailsPage
 from kivymd.app import MDApp
 from database import Database
 import time
+from kivy.core.window import Window
+
+Window.keyboard_anim_args = {'d': .2, 't': 'in_out_expo'}
+Window.softinput_mode = "below_target"
 
 #db = Database()
 

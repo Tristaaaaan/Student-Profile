@@ -17,33 +17,31 @@
                 adaptive_height: True
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 orientation: 'vertical'
-                spacing: 25
+                spacing: 50
 
                 MDBoxLayout:
-                    id: imageholder
+                    id: image_background
+                    adaptive_height: True
                     pos_hint: {"center_x": .5, "center_y": .5}
                     size_hint: .8, None
-                    adaptive_height: True
-                    
-                    MDButton:
-                        style: "tonal"
-                        theme_width: "Custom"
-                        height: "200dp"
-                        size_hint_x: 1
 
-                        MDButtonIcon:
-                            x: text.x - (self.width + dp(10))
-                            icon: "image-plus-outline"
-
-                        MDButtonText:
-                            id: text
-                            text: "Upload your image"
-                            pos_hint: {"center_x": .5, "center_y": .5}
-                            
+                    MDCard:
+                        id: imageholder
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: .8, None
+                        height: '225dp'
+                        on_release:
+                            root.chooser_start()
+                        
+                        Image:
+                            id: profileImage  
+                            source: ''
+                            fit_mode: 'fill'
                 MDTextField:
                     id: name
                     mode: "outlined"
                     size_hint_x: .8
+
                     pos_hint: {"center_x": .5, "center_y": .5}
 
 
@@ -58,7 +56,6 @@
                     mode: "outlined"
                     size_hint_x: .8
                     pos_hint: {"center_x": .5, "center_y": .5}
-
 
                     MDTextFieldHintText:
                         text: "Grade"
@@ -85,12 +82,12 @@
                     size_hint_x: .8
                     pos_hint: {"center_x": .5, "center_y": .5}
 
-
                     MDTextFieldMaxLengthText:
                         max_text_length: 55
 
                     MDTextFieldHintText:
-                        text: "School"                 
+                        text: "School"   
+
                 MDBoxLayout:
                     size_hint: .8, None
                     adaptive_height: True
@@ -116,8 +113,3 @@
                         MDButtonText:
                             text: "Submit"
                             pos_hint: {"center_x": .5, "center_y": .5}
-
-
-
-
-
