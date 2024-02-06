@@ -147,12 +147,6 @@ class Database:
                 "INSERT INTO classes(title, description) VALUES(?, ?)", (title, description,))
             self.classesConnection.commit()
 
-            # Obtaining the last item to insert in the list on the application
-            # selectLastItem = self.sportsCursor.execute(
-            #     "SELECT * FROM sports WHERE title = ?", (title,)).fetchall()
-
-            # return selectLastItem[-1]
-
     def obtainItems(self, category):
 
         """Get items from the sports category"""
@@ -244,7 +238,6 @@ class Database:
 
             self.classesConnection.commit()
 
-        
     def updateItems(self, title, description, category, prim_key):
 
         if category == 'Sports':
@@ -296,3 +289,5 @@ class Database:
         self.achievementsConnection.close()
 
         self.classesConnection.close()
+
+        self.userConnection.close()
