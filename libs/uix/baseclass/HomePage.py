@@ -63,6 +63,11 @@ class HomePage(Screen):
             self.ids.classname.text = i[3]
             self.ids.school.text = i[4]
 
+            with open('profileImage.png', 'wb') as file:
+                file.write(i[5])
+                
+            self.ids.profileImage.source = 'profileImage.png'
+
 
     def goToUpdate(self):
 
@@ -73,6 +78,7 @@ class HomePage(Screen):
         updatePage.ids.classname.text = self.ids.classname.text
         updatePage.ids.school.text = self.ids.school.text
         updatePage.pk = self.prim_key
+        updatePage.ids.profileImage.source = self.ids.profileImage.source
         
         self.manager.transition.direction = "left"
         self.manager.current = 'update'

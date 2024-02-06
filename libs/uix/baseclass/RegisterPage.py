@@ -100,8 +100,11 @@ class RegisterPage(Screen):
 
             self.manager.current = 'home'
 
+            with open(self.ids.profileImage.source, 'rb') as file:
+                image_data = file.read()
+
+            db.addUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, image_data) 
             
-            db.addUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, 'HAHA') #
             self.refresh()
 
 

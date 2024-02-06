@@ -39,7 +39,7 @@ class Database:
         """Create users table"""
 
         self.userCursor.execute(
-            "CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY AUTOINCREMENT, name varchar(55) NOT NULL, grade varchar(55) NOT NULL, classname varchar(55) NOT NULL, school varchar(55) NOT NULL, image varchar(255))"
+            "CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY AUTOINCREMENT, name varchar(55) NOT NULL, grade varchar(55) NOT NULL, classname varchar(55) NOT NULL, school varchar(55) NOT NULL, image BLOB)"
             )
 
         self.userConnection.commit()
@@ -94,13 +94,13 @@ class Database:
 
     def addUser(self, name, grade, classname, school, image):
         self.userCursor.execute(
-            "INSERT INTO users(name, grade, classname, school, image) VALUES(?, ?, ?, ?, ?)", (name, grade, classname, school, image))
+            "INSERT INTO users(name, grade, classname, school, image) VALUES(?, ?, ?, ?, ?)", (name, grade, classname, school, sqlite3.Binary(image)))
         self.userConnection.commit()
         print(name, grade, classname, school, image)
 
     def updateUser(self, name, grade, classname, school, image, prim_key):
         """Update user item"""
-        self.userCursor.execute("UPDATE users SET name=?, grade=?, classname=?, school=?, image=? WHERE id=?", (name, grade, classname, school, image, prim_key))
+        self.userCursor.execute("UPDATE users SET name=?, grade=?, classname=?, school=?, image=? WHERE id=?", (name, grade, classname, school, sqlite3.Binary(image), prim_key))
 
         self.userConnection.commit()
     
@@ -108,8 +108,7 @@ class Database:
         userData = self.userCursor.execute("SELECT id, name, grade, classname, school, image FROM users").fetchall()
 
         return userData
-    
-        print("DONE")
+
     def createItem(self, title, description, category):
 
         if category == 'Sports':

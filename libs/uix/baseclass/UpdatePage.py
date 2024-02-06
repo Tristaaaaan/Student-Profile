@@ -37,7 +37,11 @@ class UpdatePage(Screen):
                 
             self.manager.current = 'home'
             self.manager.transition.direction = "right"
-            db.updateUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, 'HAHA', self.pk) 
+
+            with open(self.ids.profileImage.source, 'rb') as file:
+                image_data = file.read()
+
+            db.updateUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, image_data, self.pk) 
             self.refresh()
 
 
