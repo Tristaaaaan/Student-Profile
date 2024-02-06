@@ -24,6 +24,8 @@ class ItemCard(MDBoxLayout):
         # state a pk which we shall use link the list items with the database primary keys
         self.pk = pk
         self.category = category
+    
+
 
     def remove_item(self, instance):
 
@@ -228,6 +230,23 @@ class ViewDetailsPage(Screen):
             else:
                 print("Database returned None")
 
+    def errorDialog(self):
+        self.errorDialogRegister = MDDialog(
+            MDDialogHeadlineText(
+                text="Ooops!",
+                halign="left",
+                theme_text_color='Custom',
+                text_color=[205/255, 92/255, 92/255, 1],
+            ),
+            MDDialogSupportingText(
+                text="To proceed, kindly fill in all the information needed correctly. It must not be empty or exceed the number of characters given.",
+                halign='left'
+            ),
+            size_hint_x=(.8),
+        )
+
+        self.errorDialogRegister.open()
+
     def addItem(self):
 
         # Create the ModalView
@@ -242,7 +261,7 @@ class ViewDetailsPage(Screen):
 
         if not (0 < len(title.text) <= 55) or not (0 < len(description.text) <= 255):
 
-            print("INCOMPLETE or Exceeds Maximum Length")
+            self.errorDialog()
 
         else:
 
@@ -263,7 +282,7 @@ class ViewDetailsPage(Screen):
         print(category)
         if not (0 < len(title.text) <= 55) or not (0 < len(description.text) <= 255):
 
-            print("INCOMPLETE or Exceeds Maximum Length")
+            self.errorDialog()
 
         else:
 

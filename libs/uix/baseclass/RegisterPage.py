@@ -51,6 +51,7 @@ class RegisterPage(Screen):
 
     def __init__(self, **kw):
         super().__init__(**kw)
+        self.shared = ''
         if platform == 'android':
             # cleanup from last time if Android didn't
             temp = SharedStorage().get_cache_dir()
@@ -71,10 +72,14 @@ class RegisterPage(Screen):
 
             for uri in uri_list:
 
-                path = ss.copy_from_shared(uri)
-                print(path)
+                self.path = ss.copy_from_shared(uri)
+                print(self.path)
 
-            self.display_image(path)
+                self.shared = ss.copy_to_shared(self.path)
+
+                print(self.shared)
+
+            self.display_image(self.path)
 
         except Exception as e:
             print('SharedStorageExample.chooser_callback():')
@@ -92,14 +97,11 @@ class RegisterPage(Screen):
         if not (0 < len(self.ids.name.text) <= 55) or not (0 < len(self.ids.grade.text) <= 55) or not (0 < len(self.ids.classname.text) <= 55) or not (0 < len(self.ids.school.text) <= 55):
             self.errorDialog()
         else:
-            homePage = self.manager.get_screen('home')
-            homePage.ids.name.text = self.ids.name.text
-            homePage.ids.grade.text = self.ids.grade.text
-            homePage.ids.classname.text = self.ids.classname.text
-            homePage.ids.school.text = self.ids.school.text
-            homePage.ids.profileImage.source = self.ids.profileImage.source
+
             self.manager.current = 'home'
-            db.addUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text)
+
+            
+            db.addUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, 'HAHA') #
             self.refresh()
 
 
@@ -108,6 +110,8 @@ class RegisterPage(Screen):
             MDDialogHeadlineText(
                 text="Ooops!",
                 halign="left",
+                theme_text_color='Custom',
+                text_color=[205/255, 92/255, 92/255, 1],
             ),
             MDDialogSupportingText(
                 text="To proceed, kindly fill in all the information needed.",

@@ -1,0 +1,26 @@
+
+<LoadingPage>:
+    name: "loading"
+
+    MDBoxLayout: 
+        size_hint: 1, 1
+        md_bg_color: 'white'
+
+        MDAnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+            MDBoxLayout:
+                spacing: 50
+                size_hint: .9, None
+                adaptive_height: True
+                orientation: 'vertical'
+
+                MDCircularProgressIndicator:
+                    size_hint: None, None
+                    size: "48dp", "48dp"
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+
+                MDLabel:
+                    text: 'Small progress is still progress.'
+                    halign: 'center'
