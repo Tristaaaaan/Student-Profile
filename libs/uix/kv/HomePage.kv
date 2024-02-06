@@ -70,7 +70,8 @@
                 Image:
                     id: profileImage  
                     source: ''
-                    fit_mode: 'scale-down' 
+                    radius: [10]
+                    fit_mode: 'scale-down' #'scale-down' 
 
         MDBoxLayout:
             orientation: 'vertical'
@@ -86,24 +87,24 @@
                 padding: [0, 5, 0, 5]
                 MDLabel:
                     id: name
-                    size_hint_y: None
+                    size_hint: .7, None
                     height: self.texture_size[1]
                     text_size: self.width, None
                     halign: 'left'
                     valign: 'center'
                     font_style: 'Title'
-                    role: 'large'
+                    role: 'medium'
 
                 MDLabel:
                     id: grade
-                    size_hint_y: None
+                    size_hint: .3, None
                     halign: 'right'
                     height: self.texture_size[1]
                     valign: 'center'
                     text_size: self.width, None
                     halign: 'right'
                     font_style: 'Title'
-                    role: 'large'
+                    role: 'medium'
 
             MDBoxLayout:
                 orientation: 'horizontal'
@@ -112,23 +113,23 @@
                 padding: [0, 5, 0, 5]
                 MDLabel:
                     id: school
-                    size_hint_y: None
+                    size_hint: .7, None
                     height: self.texture_size[1]
                     text_size: self.width, None
                     halign: 'left'
                     valign: 'center'
                     font_style: 'Title'
-                    role: 'large'
+                    role: 'medium'
 
                 MDLabel:
                     id: classname
                     halign: 'right'
                     valign: 'center'
-                    size_hint_y: None
+                    size_hint: .3, None
                     height: self.texture_size[1]
                     text_size: self.width, None
                     font_style: 'Title'
-                    role: 'large'
+                    role: 'medium'
 
         ScrollView:
             do_scroll_y: True

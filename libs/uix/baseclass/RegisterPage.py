@@ -51,7 +51,7 @@ class RegisterPage(Screen):
 
     def __init__(self, **kw):
         super().__init__(**kw)
-        self.shared = ''
+
         if platform == 'android':
             # cleanup from last time if Android didn't
             temp = SharedStorage().get_cache_dir()
@@ -74,10 +74,6 @@ class RegisterPage(Screen):
 
                 self.path = ss.copy_from_shared(uri)
                 print(self.path)
-
-                self.shared = ss.copy_to_shared(self.path)
-
-                print(self.shared)
 
             self.display_image(self.path)
 

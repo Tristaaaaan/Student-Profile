@@ -3,6 +3,8 @@ from kivy.lang import Builder
 from kivymd.uix.card import MDCard
 from kivy.properties import StringProperty, ObjectProperty
 from database import Database
+import datetime
+from kivy.clock import Clock
 
 db = Database()
 
@@ -18,7 +20,10 @@ class HomePage(Screen):
         super().__init__(**kw)
         self.prim_key = ''
 
-    def on_enter(self):
+    def on_enter(self, *args):
+        Clock.schedule_once(self.dataLoad)
+
+    def dataLoad(self, *args):
         numSports = db.obtainItems('Sports')
 
 
@@ -62,11 +67,12 @@ class HomePage(Screen):
             self.ids.grade.text = i[2]
             self.ids.classname.text = i[3]
             self.ids.school.text = i[4]
-
-            with open('profileImage.png', 'wb') as file:
+            current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: YYYYMMDD_HHMMSS
+            filename = f"profileImage_{current_time}.png"
+            with open(filename, 'wb') as file:
                 file.write(i[5])
                 
-            self.ids.profileImage.source = 'profileImage.png'
+            self.ids.profileImage.source = filename
 
 
     def goToUpdate(self):
@@ -78,6 +84,7 @@ class HomePage(Screen):
         updatePage.ids.classname.text = self.ids.classname.text
         updatePage.ids.school.text = self.ids.school.text
         updatePage.pk = self.prim_key
+
         updatePage.ids.profileImage.source = self.ids.profileImage.source
         
         self.manager.transition.direction = "left"
