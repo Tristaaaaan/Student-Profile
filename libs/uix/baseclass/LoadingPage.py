@@ -12,7 +12,7 @@ class LoadingPage(Screen):
 
     def on_enter(self):
 
-        Clock.schedule_once(self.switch_screen, 1)
+        Clock.schedule_once(self.switch_screen, 5)
 
     def switch_screen(self, dt):
         db = Database()

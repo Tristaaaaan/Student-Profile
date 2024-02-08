@@ -96,80 +96,79 @@
             MDSliverAppbarHeader:
 
                 MDBoxLayout:
-                    size_hint: 1, .6
+                    size_hint: 1, .7
                     padding: 20
 
                     MDBoxLayout:
-                        orientation: 'horizontal'
+                        orientation: 'vertical'
                         pos_hint: {"center_x": .5, "center_y": .5}
                         size_hint_y: 1
-                        spacing: 20
+                        spacing: 10
+
 
                         MDBoxLayout:
-                            orientation: 'vertical'
-                            pos_hint: {"center_x": .5, "center_y": .5}
-                            size_hint: None, 1
-                            width: dp(150) 
-
-                            MDCard:
-                                id: image_background
-                                disabled: True
-                                style: "outlined"
-                                pos_hint: {"center_x": .5, 'center_y': .5}
-                                size_hint: 1, 1
-                                radius: [20]  # Half of the height
-                                padding: 5
-    
-                                FitImage:
-                                    id: profileImage  
-                                    source: ''
-                        MDBoxLayout:
-                            orientation: 'vertical'
-                            size_hint: 1, None
-                            spacing: 2
+                            id: image_background
+                            style: "outlined"
                             pos_hint: {"center_x": .5, 'center_y': .5}
-                            
-                            MDLabel:
-                                id: name
-                                size_hint: 1, None
-                                height: self.texture_size[1]
-                                text_size: self.width, None
-                                halign: 'left'
-                                valign: 'top'
-                                font_style: 'Title'
-                                bold: True
-                                role: 'medium'
+                            size_hint: 1, 1
+                            radius: [20]  # Half of the height
+                            padding: 5
 
-                            MDLabel:
-                                id: grade
-                                size_hint: 1, None
-                                halign: 'right'
-                                height: self.texture_size[1]
-                                valign: 'top'
-                                text_size: self.width, None
-                                halign: 'left'
-                                font_style: 'Body'
-                                role: 'small'
+                            FitImage:
+                                id: profileImage  
+                                source: ''
 
-                            MDLabel:
-                                id: classname
-                                halign: 'left'
-                                valign: 'top'
-                                size_hint: 1, None
-                                height: self.texture_size[1]
-                                text_size: self.width, None
-                                font_style: 'Body'
-                                role: 'medium'
+                        MDBoxLayout:
+                            orientation: 'vertical'
+                            adaptive_height: True
+                            padding: [0, 10, 0, 10]
+                            pos_hint: {"center_x": .5, 'center_y': .5}
+                            MDBoxLayout:
+                                orientation: 'horizontal'
 
-                            MDLabel:
-                                id: school
-                                size_hint: 1, None
-                                height: self.texture_size[1]
-                                text_size: self.width, None
-                                halign: 'left'
-                                valign: 'top'
-                                font_style: 'Title'
-                                role: 'small'
+                                MDLabel:
+                                    id: name
+                                    size_hint: 1, None
+                                    height: self.texture_size[1]
+                                    text_size: self.width, None
+                                    halign: 'left'
+                                    valign: 'top'
+                                    font_style: 'Title'
+                                    role: 'medium'
+
+                                MDLabel:
+                                    id: grade
+                                    size_hint: 1, None
+                                    halign: 'right'
+                                    height: self.texture_size[1]
+                                    valign: 'top'
+                                    text_size: self.width, None
+                                    halign: 'right'
+                                    font_style: 'Title'
+                                    role: 'medium'
+
+                            MDBoxLayout:
+                                orientation: 'horizontal'
+                                adaptive_height: True
+                                MDLabel:
+                                    id: school
+                                    size_hint: 1, None
+                                    height: self.texture_size[1]
+                                    text_size: self.width, None
+                                    halign: 'left'
+                                    valign: 'top'
+                                    font_style: 'Title'
+                                    role: 'medium'
+                                
+                                MDLabel:
+                                    id: classname
+                                    halign: 'right'
+                                    valign: 'top'
+                                    size_hint: 1, None
+                                    height: self.texture_size[1]
+                                    text_size: self.width, None
+                                    font_style: 'Title'
+                                    role: 'medium'
 
             MDSliverAppbarContent:
                 id: content

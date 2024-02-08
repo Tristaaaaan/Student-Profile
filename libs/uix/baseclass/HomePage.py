@@ -87,32 +87,35 @@ class HomePage(Screen):
     def goToFacebook(self):
         if self.check_internet_connection():
             if self.facebook:
-                webbrowser.open(self.facebook)
+                facebook_url = self.facebook if self.facebook.startswith("https://") else "https://" + self.facebook
+                webbrowser.open(facebook_url)
             else:
                 self.errorDialog()
         else:
             self.manager.current = 'nointernet'
-            self. manager.transition.direction = "left"
+            self.manager.transition.direction = "left"
 
     def goToTwitter(self):
         if self.check_internet_connection():
             if self.twitter:
-                webbrowser.open(self.twitter)
+                twitter_url = self.twitter if self.twitter.startswith("https://") else "https://" + self.twitter
+                webbrowser.open(twitter_url)
             else:
                 self.errorDialog()
         else:
             self.manager.current = 'nointernet'
-            self. manager.transition.direction = "left"
+            self.manager.transition.direction = "left"
 
     def goToInstagram(self):
         if self.check_internet_connection():
             if self.instagram:
-                webbrowser.open(self.instagram)
+                instagram_url = self.instagram if self.instagram.startswith("https://") else "https://" + self.instagram
+                webbrowser.open(instagram_url)
             else:
                 self.errorDialog()
         else:
             self.manager.current = 'nointernet'
-            self. manager.transition.direction = "left"
+            self.manager.transition.direction = "left"
 
     def errorDialog(self):
         self.errorDialogRegister = MDDialog(
