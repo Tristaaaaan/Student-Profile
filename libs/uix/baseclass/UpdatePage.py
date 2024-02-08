@@ -27,6 +27,11 @@ if platform == "android":
         ]
     )
 
+
+class GuideDialog(MDDialog):
+    pass
+
+
 class UpdatePage(Screen):
 
     Builder.load_file('libs/uix/kv/UpdatePage.kv')
@@ -34,7 +39,6 @@ class UpdatePage(Screen):
     def __init__(self, pk=None, **kw):
         super().__init__(**kw)
         self.pk = pk
-        self.image = ''
 
         if platform == 'android':
             # Cleanup from last time if Android didn't
@@ -55,6 +59,10 @@ class UpdatePage(Screen):
         self.ids.classname.text = ''
         self.ids.school.text = ''
 
+        self.ids.facebook.text = ''
+        self.ids.instagram.text = ''
+        self.ids.twitter.text = ''
+        
     @mainthread
     def chooser_callback(self, uri_list):
         ss = SharedStorage()
@@ -75,7 +83,7 @@ class UpdatePage(Screen):
 
         if image_path:
             self.ids.profileImage.source = image_path
-            self.image = image_path
+
 
         else:
             print("Image path is None.")
@@ -86,13 +94,15 @@ class UpdatePage(Screen):
             self.errorDialog()
             
         else:
-            with open(self.image, 'rb') as file:
+            with open(self.ids.profileImage.source, 'rb') as file:
                 image_data = file.read()
 
             db = Database()
 
-            db.updateUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, image_data, self.pk) 
-
+            db.updateUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, image_data, self.ids.facebook.text, self.ids.twitter.text, self.ids.instagram.text, self.pk) 
+            print(self.ids.twitter.text)
+            print(self.ids.instagram.text)
+            print(self.ids.facebook.text)
             self.manager.current = 'home'
             self.manager.transition.direction = "right"
             homePageImage = self.manager.get_screen('home')
@@ -121,4 +131,8 @@ class UpdatePage(Screen):
         )
 
         self.errorDialogRegister.open()
-        
+
+    def guide(self):
+        self.guideDialog = GuideDialog()
+
+        self.guideDialog.open()

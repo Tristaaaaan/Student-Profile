@@ -1,0 +1,51 @@
+
+<NoInternet>:
+    name: "nointernet"
+
+    MDRelativeLayout:
+        orientation: 'vertical'
+        size_hint: 1, 1
+        md_bg_color: 'white'
+        pos_hint: {'center_x': .5, 'center_y': .5}
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            size_hint: .9, .6
+            spacing: 15
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+            Image:      
+                source: 'assets/icons/clarity_no-wifi-solid.png'
+                auto_ratio: True
+
+            MDLabel:
+                text: "Whoops!"
+                halign: 'center'
+                size_hint_y: None
+                bold: True
+                font_style: 'Headline'
+                role: 'large'
+                height: self.texture_size[1]
+                text_size: self.width, None
+                
+            MDLabel:
+                text: "There is no internet connection found. Check your connection or try again."
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+
+            MDButton:
+                style: "filled"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                theme_width: "Custom"
+                height: "56dp"
+                elevation: 0
+                size_hint_x: .9
+                on_release:
+                    app.root.current = "home"
+                    root.manager.transition.direction = "right"
+
+                MDButtonText:
+                    text: "Try Again"
+                    pos_hint: {"center_x": .5, "center_y": .5}

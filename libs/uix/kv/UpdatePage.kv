@@ -1,3 +1,36 @@
+<GuideDialog>:
+    size_hint: .9, None
+    adaptive_height: True
+
+    MDDialogHeadlineText:
+        text: "Guide"
+        halign: 'left'
+
+    MDDialogContentContainer:
+        adaptive_height: True
+        orientation: 'vertical'
+
+        MDLabel:
+            text: 
+                "Grant value is calculated using the closing stock price \\n" \
+                "from the day before the grant date. Amounts do not \\n" \
+                "reflect tax witholdings."
+            halign: "left"
+            font_style: 'Title'
+            role: 'medium'
+
+    MDDialogButtonContainer:
+
+        MDWidget:
+
+        MDButton:
+            style: "filled"
+            on_release:
+                app.root.view.saveAddItemDialog(title, description, root.category) #; root.closeAddItemDialog()
+
+            MDButtonText:
+                text: "Okay"
+
 <UpdatePage>:
     name: "update"
 
@@ -7,33 +40,55 @@
         md_bg_color: 'white'
         orientation: 'vertical'
 
-        MDBoxLayout:
-            md_bg_color: 'white'
-            size_hint: .9, None
-            height: self.minimum_height
-            padding: [0, 20, 0, 0]
+        MDTopAppBar:
+            type: "medium"
+            size_hint_x: 1
             pos_hint: {"center_x": .5, "center_y": .5}
-            
-            MDIconButton:
-                pos_hint: {"center_y": .5}
-                icon: "chevron-left"
-                style: "tonal"
-                on_release:
-                    app.root.current = "home"
-                    root.manager.transition.direction = "right"   
 
-        MDAnchorLayout:
-            anchor_x: 'center'
-            anchor_y: 'center'
-            pos_hint: {'center_x': .5, 'center_y': .5}
+            MDTopAppBarLeadingButtonContainer:
 
+                MDActionTopAppBarButton:
+                    icon: "chevron-left"
+                    on_release:
+                        app.root.current = "home"
+                        root.manager.transition.direction = "right"  
+
+            MDTopAppBarTitle:
+                text: 'Profile'
+                font_style: 'Headline'
+                role: 'small'
+                pos_hint: {"center_x": .5}
+
+
+            MDTopAppBarTrailingButtonContainer:
+
+                MDActionTopAppBarButton:
+                    icon: "tooltip-question-outline"
+                    on_release:
+                        app.root.current = "userguide"
+                        root.manager.transition.direction = "left"
+
+        ScrollView:
             MDBoxLayout:
+                padding: [0, 50, 0, 100]
                 size_hint: 1, None
                 adaptive_height: True
                 pos_hint: {'center_x': .5, 'center_y': .5}
                 orientation: 'vertical'
                 spacing: 50
 
+                MDBoxLayout:
+                    height: self.minimum_height
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    size_hint_x: .9
+                    MDLabel:
+                        text: "Student Information"
+                        halign: "left"
+                        font_style: 'Headline'
+                        role: 'small'
+                        height: self.texture_size[1]
+                        text_size: self.width, None
+                        
                 MDBoxLayout:
                     id: image_background
                     adaptive_height: True
@@ -107,6 +162,49 @@
                     MDTextFieldHintText:
                         text: "School"   
 
+                MDDivider:
+                    size_hint_x: .9
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+
+                MDBoxLayout:
+                    height: self.minimum_height
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    size_hint_x: .9
+                    MDLabel:
+                        text: "Social Media Handles"
+                        halign: "left"
+                        font_style: 'Headline'
+                        role: 'small'
+                        height: self.texture_size[1]
+                        text_size: self.width, None
+
+                MDTextField:
+                    id: facebook
+                    mode: "outlined"
+                    size_hint_x: .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+                    MDTextFieldHintText:
+                        text: "Facebook URL"
+
+                MDTextField:
+                    id: twitter
+                    mode: "outlined"
+                    size_hint_x: .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+                    MDTextFieldHintText:
+                        text: "Twitter URL"        
+
+                MDTextField:
+                    id: instagram
+                    mode: "outlined"
+                    size_hint_x: .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+                    MDTextFieldHintText:
+                        text: "Instagram URL"   
+
                 MDBoxLayout:
                     size_hint: .9, None
                     adaptive_height: True
@@ -121,7 +219,7 @@
                             root.refresh()
 
                     MDButton:
-                        style: "tonal"
+                        style: "filled"
                         pos_hint: {"center_x": .5, "center_y": .5}
                         theme_width: "Custom"
                         height: "56dp"

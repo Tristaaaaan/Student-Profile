@@ -86,7 +86,7 @@ class RegisterPage(Screen):
                 
             db = Database()
 
-            db.addUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, image_data) 
+            db.addUser(self.ids.name.text, self.ids.grade.text, self.ids.classname.text, self.ids.school.text, image_data, self.ids.facebook.text, self.ids.twitter.text, self.ids.instagram.text) 
             
             self.refresh()
 
@@ -117,3 +117,7 @@ class RegisterPage(Screen):
         self.ids.grade.text = ''
         self.ids.classname.text = ''
         self.ids.school.text = ''
+        
+        self.ids.facebook.text = ''
+        self.ids.instagram.text = ''
+        self.ids.twitter.text = ''

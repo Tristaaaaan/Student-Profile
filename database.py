@@ -39,7 +39,7 @@ class Database:
         """Create users table"""
 
         self.userCursor.execute(
-            "CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY AUTOINCREMENT, name varchar(55) NOT NULL, grade varchar(55) NOT NULL, classname varchar(55) NOT NULL, school varchar(55) NOT NULL, image BLOB)"
+            "CREATE TABLE IF NOT EXISTS users(id integer PRIMARY KEY AUTOINCREMENT, name varchar(55) NOT NULL, grade varchar(55) NOT NULL, classname varchar(55) NOT NULL, school varchar(55) NOT NULL, image BLOB, facebook text NULL, twitter text NULL, instagram text NULL)"
             )
 
         self.userConnection.commit()
@@ -92,20 +92,20 @@ class Database:
 
         self.classesConnection.commit()
 
-    def addUser(self, name, grade, classname, school, image):
+    def addUser(self, name, grade, classname, school, image, facebook, twitter, instagram):
         self.userCursor.execute(
-            "INSERT INTO users(name, grade, classname, school, image) VALUES(?, ?, ?, ?, ?)", (name, grade, classname, school, sqlite3.Binary(image)))
+            "INSERT INTO users(name, grade, classname, school, image, facebook, twitter, instagram) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (name, grade, classname, school, sqlite3.Binary(image), facebook, twitter, instagram))
         self.userConnection.commit()
         print(name, grade, classname, school, image)
 
-    def updateUser(self, name, grade, classname, school, image, prim_key):
+    def updateUser(self, name, grade, classname, school, image, facebook, twitter, instagram, prim_key):
         """Update user item"""
-        self.userCursor.execute("UPDATE users SET name=?, grade=?, classname=?, school=?, image=? WHERE id=?", (name, grade, classname, school, sqlite3.Binary(image), prim_key))
+        self.userCursor.execute("UPDATE users SET name=?, grade=?, classname=?, school=?, image=?, facebook=?, twitter=?, instagram=? WHERE id=?", (name, grade, classname, school, sqlite3.Binary(image), facebook, twitter, instagram, prim_key))
 
         self.userConnection.commit()
     
     def obtainUser(self):
-        userData = self.userCursor.execute("SELECT id, name, grade, classname, school, image FROM users").fetchall()
+        userData = self.userCursor.execute("SELECT id, name, grade, classname, school, image, facebook, twitter, instagram FROM users").fetchall()
 
         return userData
 

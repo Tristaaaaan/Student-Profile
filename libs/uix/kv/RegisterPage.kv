@@ -7,12 +7,10 @@
         pos_hint: {'center_x': .5, 'center_y': .5}
         md_bg_color: 'white'
         
-        MDAnchorLayout:
-            anchor_x: 'center'
-            anchor_y: 'center'
-            pos_hint: {'center_x': .5, 'center_y': .5}
-
+        ScrollView:
+            
             MDBoxLayout:
+                padding: [0, 100, 0, 100]
                 size_hint: 1, None
                 adaptive_height: True
                 pos_hint: {'center_x': .5, 'center_y': .5}
@@ -20,10 +18,22 @@
                 spacing: 50
 
                 MDBoxLayout:
+                    height: self.minimum_height
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    size_hint_x: .9
+                    MDLabel:
+                        text: "Student Information"
+                        halign: "left"
+                        font_style: 'Headline'
+                        role: 'small'
+                        height: self.texture_size[1]
+                        text_size: self.width, None
+
+                MDBoxLayout:
                     id: image_background
                     adaptive_height: True
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    size_hint: .8, None
+                    size_hint: .9, None
 
                     MDCard:
                         id: imageholder
@@ -47,7 +57,7 @@
                 MDTextField:
                     id: name
                     mode: "outlined"
-                    size_hint_x: .8
+                    size_hint_x: .9
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                     MDTextFieldHintText:
@@ -59,7 +69,7 @@
                 MDTextField:
                     id: grade
                     mode: "outlined"
-                    size_hint_x: .8
+                    size_hint_x: .9
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                     MDTextFieldHintText:
@@ -71,7 +81,7 @@
                 MDTextField:
                     id: classname
                     mode: "outlined"
-                    size_hint_x: .8
+                    size_hint_x: .9
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                     MDTextFieldHintText:
@@ -83,7 +93,7 @@
                 MDTextField:
                     id: school
                     mode: "outlined"
-                    size_hint_x: .8
+                    size_hint_x: .9
                     pos_hint: {"center_x": .5, "center_y": .5}
 
                     MDTextFieldMaxLengthText:
@@ -92,8 +102,51 @@
                     MDTextFieldHintText:
                         text: "School"   
 
+                MDDivider:
+                    size_hint_x: .9
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+
                 MDBoxLayout:
-                    size_hint: .8, None
+                    height: self.minimum_height
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    size_hint_x: .9
+                    MDLabel:
+                        text: "Social Media Handles"
+                        halign: "left"
+                        font_style: 'Headline'
+                        role: 'small'
+                        height: self.texture_size[1]
+                        text_size: self.width, None
+
+                MDTextField:
+                    id: facebook
+                    mode: "outlined"
+                    size_hint_x: .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+                    MDTextFieldHintText:
+                        text: "Facebook URL"
+
+                MDTextField:
+                    id: twitter
+                    mode: "outlined"
+                    size_hint_x: .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+                    MDTextFieldHintText:
+                        text: "Twitter URL"        
+
+                MDTextField:
+                    id: instagram
+                    mode: "outlined"
+                    size_hint_x: .9
+                    pos_hint: {"center_x": .5, "center_y": .5}
+
+                    MDTextFieldHintText:
+                        text: "Instagram URL"   
+
+                MDBoxLayout:
+                    size_hint: .9, None
                     adaptive_height: True
                     spacing: 10
                     orientation: 'horizontal'
@@ -106,11 +159,12 @@
                             root.refresh()
 
                     MDButton:
-                        style: "tonal"
+                        style: "filled"
                         pos_hint: {"center_x": .5, "center_y": .5}
                         theme_width: "Custom"
                         height: "56dp"
-                        size_hint_x: .8
+                        elevation: 0
+                        size_hint_x: .9
                         on_release:
                             root.validateInfo()
 

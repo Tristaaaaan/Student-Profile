@@ -1,0 +1,210 @@
+<UserGuide>:
+    name: "userguide"
+    MDBoxLayout:
+        size_hint: 1, 1
+        md_bg_color: 'white' 
+        orientation: 'vertical'
+
+        MDBoxLayout:
+            size_hint: .9, None
+            adaptive_height: True
+            md_bg_color: 'white'
+            pos_hint: {'center_x': .5, 'center_y': .5}
+
+            MDBoxLayout:
+                size_hint: None, None
+                adaptive_height: True
+
+                padding: [0, 10, 0, 10]
+                MDIconButton:
+                    icon: 'chevron-left'
+                    on_release:
+                        app.root.current = "update"
+                        root.manager.transition.direction = "right"
+        MDBoxLayout:
+            md_bg_color: 'white'
+            size_hint: 1, 1
+            ScrollView:
+
+                MDBoxLayout:
+                    padding: [0, 20, 0, 100]
+                    size_hint: 1, None
+                    adaptive_height: True
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    orientation: 'vertical'
+
+                    MDBoxLayout:
+                        size_hint: .9, None
+                        adaptive_height: True
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+                        orientation: 'vertical'
+                        spacing: 15
+
+                        MDLabel:
+                            text: "User Guide: Student Profile App"
+                            height: self.texture_size[1]
+                            size_hint: 1, None
+                            bold: True
+                            font_style: 'Headline'
+                            role: 'small'
+                            adaptive_height: True
+                            text_size: self.width, None
+
+                        MDDivider:
+
+                        MDLabel:
+                            text: "Getting Started:"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            size_hint: 1, None
+                            adaptive_height: True
+                            bold: True
+                            font_style: 'Title'
+                            role: 'large'
+
+                        MDLabel:
+                            text: "When you open the app, you'll land on the home screen where you can see different categories for your portfolio."
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            size_hint: 1, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'
+                            padding: [0, 0, 0, 5]
+
+                        MDLabel:
+                            text: "Adding Items to Your Portfolio:"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            size_hint: 1, None
+                            adaptive_height: True
+                            bold: True
+                            font_style: 'Title'
+                            role: 'large'
+
+                        MDLabel:
+                            text: "To add an item to your portfolio, tap on the category you want to add to, such as 'Achievements', 'Sports', or 'Community Service'."
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'
+                            padding: [0, 0, 0, 5]
+
+                        MDLabel:
+                            text: "Inserting Information:"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            bold: True
+                            font_style: 'Title'
+                            role: 'large'
+
+                        MDLabel:
+                            text: "Once you're in the category, you'll see an option to 'Add Item' or 'Insert'. Tap on it to insert details about your achievement, sport event, or community service activity."
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'
+                            padding: [0, 0, 0, 5]
+
+                        MDLabel:
+                            text: "Providing Details:"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            bold: True
+                            font_style: 'Title'
+                            role: 'large'
+
+                        MDLabel:
+                            text: "You'll be prompted to provide details such as the title of your accomplishment and a brief description."
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'
+                            padding: [0, 0, 0, 5]
+
+                        MDLabel:
+                            text: "Saving Your Entry:"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            bold: True
+                            font_style: 'Title'
+                            role: 'large'
+
+                        MDLabel:
+                            text: "After providing all the necessary information, tap on 'Save' to save your entry. It will then be added to your portfolio under the respective category."
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'
+                            padding: [0, 0, 0, 5]
+
+                        MDLabel:
+                            text: "Editing or Deleting Entries:"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            bold: True
+                            font_style: 'Title'
+                            role: 'large'
+
+                        MDLabel:
+                            text: "If you need to make changes or delete an entry, simply navigate to the category where the entry is located, tap on the entry. To edit, tap on the item of the category. To delete it, tap on the 'Delete' icon."
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'
+                            padding: [0, 0, 0, 5]
+
+                        MDLabel:
+                            text: "Exploring Different Categories:"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            bold: True
+                            font_style: 'Title'
+                            role: 'large'
+
+                        MDLabel:
+                            text: "Feel free to explore and add entries to different categories to build a comprehensive portfolio that reflects your diverse talents and achievements."
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'
+                            padding: [0, 0, 0, 5]
+
+                        MDLabel:
+                            text: "Keeping Your Portfolio Updated:"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            bold: True
+                            font_style: 'Title'
+                            role: 'large'
+                            
+                        MDLabel:
+                            text: "Don't forget to update your portfolio regularly with new achievements, sports events, or community service activities to keep it relevant and showcase your ongoing progress."
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'
+                            padding: [0, 0, 0, 5]
+
+                        MDDivider:
+
+                        MDLabel:
+                            text: "We hope you enjoy using Student Profile App to document and celebrate your accomplishments. With Student Profile App, you have a convenient and organized way to keep track of your achievements and showcase your talents to the world. Happy portfolio building!"
+                            height: self.texture_size[1]
+                            text_size: self.width, None
+                            adaptive_height: True
+                            font_style: 'Title'
+                            role: 'small'

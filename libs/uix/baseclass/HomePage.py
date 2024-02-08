@@ -1,3 +1,4 @@
+from kivymd.uix.dialog import MDDialog, MDDialogHeadlineText, MDDialogSupportingText
 from kivymd.uix.card import MDCard
 
 from kivy.clock import Clock
@@ -5,7 +6,9 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
 
+import requests
 import datetime
+import webbrowser
 
 from database import Database
 
@@ -21,6 +24,9 @@ class HomePage(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.prim_key = ''
+        self.facebook = ''
+        self.instagram = ''
+        self.twitter = ''
 
     def on_enter(self, *args):
         Clock.schedule_once(self.dataLoad)
@@ -55,18 +61,78 @@ class HomePage(Screen):
             self.ids.grade.text = i[2]
             self.ids.classname.text = i[3]
             self.ids.school.text = i[4]
-
+            
             current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")  
             filename = f"profileImage_{current_time}.png"
 
             # Creating a new Image File
             with open(filename, 'wb') as file:
                 file.write(i[5])
-                
+
             self.ids.profileImage.source = filename
-            
+
+            self.facebook = i[6]
+            self.twitter = i[7]
+            self.instagram = i[8]
+
         db.close_db_connection()
 
+    def check_internet_connection(self):
+        try:
+            requests.get("http://www.google.com", timeout=5)
+            return True
+        except requests.ConnectionError:
+            return False
+    
+    def goToFacebook(self):
+        if self.check_internet_connection():
+            if self.facebook:
+                webbrowser.open(self.facebook)
+            else:
+                self.errorDialog()
+        else:
+            self.manager.current = 'nointernet'
+            self. manager.transition.direction = "left"
+
+    def goToTwitter(self):
+        if self.check_internet_connection():
+            if self.twitter:
+                webbrowser.open(self.twitter)
+            else:
+                self.errorDialog()
+        else:
+            self.manager.current = 'nointernet'
+            self. manager.transition.direction = "left"
+
+    def goToInstagram(self):
+        if self.check_internet_connection():
+            if self.instagram:
+                webbrowser.open(self.instagram)
+            else:
+                self.errorDialog()
+        else:
+            self.manager.current = 'nointernet'
+            self. manager.transition.direction = "left"
+
+    def errorDialog(self):
+        self.errorDialogRegister = MDDialog(
+
+            MDDialogHeadlineText(
+                text="Ooops!",
+                halign="left",
+                theme_text_color='Custom',
+                text_color=[205/255, 92/255, 92/255, 1],
+            ),
+
+            MDDialogSupportingText(
+                text="It seems that the URL field is empty. Please make sure to enter a valid URL before proceeding.",
+                halign="left",
+            ),
+
+            size_hint_x=(.9),
+        )
+
+        self.errorDialogRegister.open()
 
     def goToUpdate(self):
 
@@ -79,7 +145,10 @@ class HomePage(Screen):
         updatePage.ids.school.text = self.ids.school.text
         updatePage.pk = self.prim_key
         updatePage.ids.profileImage.source = self.ids.profileImage.source
-        
+        updatePage.ids.facebook.text = self.facebook
+        updatePage.ids.twitter.text = self.twitter
+        updatePage.ids.instagram.text = self.instagram
+
         self.manager.transition.direction = "left"
         self.manager.current = 'update'
         

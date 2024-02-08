@@ -61,7 +61,7 @@ class ItemCard(MDBoxLayout):
 
                 MDButton(
                     MDButtonText(text="Yes"),
-                    style="text",
+                    style="filled",
                     on_release=lambda x: self.remove_item(instance),
                 ),
 
@@ -283,7 +283,7 @@ class ViewDetailsPage(Screen):
 
             self.closesaveAddItemDialog(self.addItemModalView)
         
-        db.close_db_connection()
+            db.close_db_connection()
 
     def saveUpdateItemDialog(self, title, description, category, prim_key):
 

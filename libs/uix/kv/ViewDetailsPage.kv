@@ -60,7 +60,7 @@
                 text: "Cancel"
 
         MDButton:
-            style: "tonal"
+            style: "filled"
             on_release:
                 app.root.view.saveAddItemDialog(title, description, root.category) #; root.closeAddItemDialog()
 
@@ -133,7 +133,7 @@
                 text: "Cancel"
 
         MDButton:
-            style: "tonal"
+            style: "filled"
             on_release:
                 app.root.view.saveUpdateItemDialog(title, description, root.category, root.pk) #; root.closeAddItemDialog()
 
@@ -192,60 +192,65 @@
 
 <ViewDetailsPage>:
     name: "view"
-    
+
     MDBoxLayout:
         md_bg_color: 'white'
         size_hint: 1, 1
         orientation: 'vertical'
- 
-        MDBoxLayout:
-            md_bg_color: 'white'
-            size_hint: .9, None
-            height: self.minimum_height
-            padding: [0, 20, 0, 50]
-            pos_hint: {"center_x": .5, "center_y": .5}
-            
-            MDIconButton:
-                pos_hint: {"center_y": .5}
-                icon: "chevron-left"
-                style: "tonal"
-                on_release:
-                    app.root.current = "home"
-                    root.manager.transition.direction = "right"
-
-        MDBoxLayout:
-            size_hint: .9, None
-            adaptive_height: True
+        pos_hint: {"center_x": .5, "center_y": .5}
+        
+        MDTopAppBar:
+            type: "medium"
+            size_hint_x: 1
             pos_hint: {"center_x": .5, "center_y": .5}
 
-            MDLabel:
+            MDTopAppBarLeadingButtonContainer:
+
+                MDActionTopAppBarButton:
+                    icon: "chevron-left"
+                    on_release:
+                        app.root.current = "home"
+                        root.manager.transition.direction = "right"
+
+            MDTopAppBarTitle:
                 id: category
                 font_style: 'Headline'
                 role: 'small'
-                halign: 'left'
-                valign: 'center'
+                pos_hint: {"center_x": .5}
 
-            MDAnchorLayout:
-                anchor_x: 'right'
-                size_hint_y: 1
-                anchor_y: 'center'
+            MDTopAppBarTrailingButtonContainer:
 
-                MDIconButton:
-                    pos_hint: {"center_x": .5, "center_y": .5}
+                MDActionTopAppBarButton:
                     icon: "star-plus"
-                    style: "tonal"
                     on_release:
                         root.addItem()
 
-
         # List
         MDBoxLayout:
-            size_hint: .9, 1
+            size_hint: 1, 1
+            md_bg_color: 'white'
             pos_hint: {"center_x": .5, "center_y": .5}
 
             ScrollView:
+                do_scroll_x: False
+                pos_hint: {'center_x': .5, 'center_y': .5}
 
-                MDList:
-                    id: container
-                    padding: 0
+                MDBoxLayout:
+                    size_hint: 1, None
+                    adaptive_height: True
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    orientation: 'vertical'
+
+                    MDBoxLayout:
+                        size_hint: .9, None
+                        adaptive_height: True
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+                        orientation: 'vertical'
+
+                        MDList:
+                            size_hint_y: None
+                            height: self.minimum_height
+                            pos_hint: {'center_x': .5, 'center_y': .5}
+                            id: container
+                            padding: 0
        
