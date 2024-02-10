@@ -128,109 +128,17 @@ class ViewDetailsPage(Screen):
         # Category
         category = self.ids.category.text
 
-        if category == 'Sports':
-            sportItemsDatabase = db.obtainItems(category)
+        items_database = db.obtainItems(category)
 
-            if sportItemsDatabase is not None:
-
-                if sportItemsDatabase:
-
-                    for items in sportItemsDatabase:
-                        sportItems = ItemCard(pk=items[0], category=category, custom_title=items[1], custom_description=items[2])
-
-                        self.ids.container.add_widget(sportItems)
-
-                else:
-                    print("List is empty")
-
+        if items_database is not None:
+            if items_database:
+                for items in items_database:
+                    item_card = ItemCard(pk=items[0], category=category, custom_title=items[1], custom_description=items[2])
+                    self.ids.container.add_widget(item_card)
             else:
-                print("Database returned None")
-        
-        elif category == 'Arts':
-            artsItemsDatabase = db.obtainItems(category)
-
-            if artsItemsDatabase is not None:
-
-                if artsItemsDatabase:
-
-                    for items in reversed(artsItemsDatabase):
-                        artItems = ItemCard(pk=items[0], category=category,custom_title=items[1], custom_description=items[2])
-                        self.ids.container.add_widget(artItems, index=4)
-
-                else:
-                    print("List is empty")
-
-            else:
-                print("Database returned None")
-
-        elif category == 'Clubs':
-            clubsItemsDatabase = db.obtainItems(category)
-
-            if clubsItemsDatabase is not None:
-
-                if clubsItemsDatabase:
-
-                    for items in reversed(clubsItemsDatabase):
-                        clubItems = ItemCard(pk=items[0], category=category,custom_title=items[1], custom_description=items[2])
-                        self.ids.container.add_widget(clubItems)
-
-                else:
-                    print("List is empty")
-            else:
-                print("Database returned None")
-
-        elif category == 'Community Service':
-            communityServiceItemsDatabase = db.obtainItems(category)
-
-            if communityServiceItemsDatabase is not None:
-
-                if communityServiceItemsDatabase:
-
-                    for items in reversed(communityServiceItemsDatabase):
-                        print(items[1])
-                        communityServiceItems = ItemCard(pk=items[0], category=category,custom_title=items[1], custom_description=items[2])
-                        self.ids.container.add_widget(communityServiceItems)
-
-                else:
-                    print("List is empty")
-
-            else:
-                print("Database returned None")
-
-        elif category == 'Achievements':
-            achievementItemsDatabase = db.obtainItems(category)
-
-            if achievementItemsDatabase is not None:
-
-                if achievementItemsDatabase:
-   
-                    for items in reversed(achievementItemsDatabase):
-
-                        achievementItems = ItemCard(pk=items[0], category=category,custom_title=items[1], custom_description=items[2])
-                        self.ids.container.add_widget(achievementItems)
-
-                else:
-                    print("List is empty")
-
-            else:
-                print("Database returned None")
-
+                print("List is empty")
         else:
-            classItemsDatabase = db.obtainItems(category)
-
-            if classItemsDatabase is not None:
-
-                if classItemsDatabase:
-
-                    for items in reversed(classItemsDatabase):
-                        classItems = ItemCard(pk=items[0], category=category,custom_title=items[1], custom_description=items[2])
-                        self.ids.container.add_widget(classItems)
-
-                else:
-                    print("List is empty")
-
-            else:
-                print("Database returned None")
+            print("Database returned None")
 
         db.close_db_connection()
 
