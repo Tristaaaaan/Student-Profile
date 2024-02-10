@@ -87,7 +87,7 @@ class HomePage(Screen):
     def goToFacebook(self):
         if self.check_internet_connection():
             if self.facebook:
-                facebook_url = self.facebook if self.facebook.startswith("https://") else "https://" + self.facebook
+                facebook_url = self.facebook if self.facebook.startswith("https://facebook.com/") else "https://facebook.com/" + self.facebook
                 webbrowser.open(facebook_url)
             else:
                 self.errorDialog()
@@ -98,7 +98,7 @@ class HomePage(Screen):
     def goToTwitter(self):
         if self.check_internet_connection():
             if self.twitter:
-                twitter_url = self.twitter if self.twitter.startswith("https://") else "https://" + self.twitter
+                twitter_url = self.twitter if self.twitter.startswith("https://x.com/") else "https://x.com/" + self.twitter
                 webbrowser.open(twitter_url)
             else:
                 self.errorDialog()
@@ -109,7 +109,7 @@ class HomePage(Screen):
     def goToInstagram(self):
         if self.check_internet_connection():
             if self.instagram:
-                instagram_url = self.instagram if self.instagram.startswith("https://") else "https://" + self.instagram
+                instagram_url = self.instagram if self.instagram.startswith("https://instagram.com/") else "https://instagram.com/" + self.instagram
                 webbrowser.open(instagram_url)
             else:
                 self.errorDialog()
