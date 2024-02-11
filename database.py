@@ -110,171 +110,63 @@ class Database:
         return userData
 
     def createItem(self, title, description, category):
+        cursor_map = {
+            'Sports': (self.sportsCursor, self.sportsConnection),
+            'Arts': (self.artsCursor, self.artsConnection),
+            'Clubs': (self.clubsCursor, self.clubsConnection),
+            'Community Service': (self.communityServiceCursor, self.communityServiceConnection),
+            'Achievements': (self.achievementsCursor, self.achievementsConnection),
+            'Classes': (self.classesCursor, self.classesConnection)
+        }
 
-        if category == 'Sports':
-            """Create an item for sports"""
-            self.sportsCursor.execute(
-                "INSERT INTO sports(title, description) VALUES(?, ?)", (title, description,))
-            self.sportsConnection.commit()
-
-        elif category == 'Arts':
-            """Create an item for arts"""
-            self.artsCursor.execute(
-                "INSERT INTO arts(title, description) VALUES(?, ?)", (title, description,))
-            self.artsConnection.commit()
-
-        elif category == 'Clubs':
-            """Create an item for clubs"""
-            self.clubsCursor.execute(
-                "INSERT INTO clubs(title, description) VALUES(?, ?)", (title, description,))
-            self.clubsConnection.commit()
-        
-        elif category == 'Community Service':
-            """Create an item for community service"""
-            self.communityServiceCursor.execute(
-                "INSERT INTO community_service(title, description) VALUES(?, ?)", (title, description,))
-            self.communityServiceConnection.commit()
-
-        elif category == 'Achievements':
-            """Create an item for achievements"""
-            self.achievementsCursor.execute(
-                "INSERT INTO achievements(title, description) VALUES(?, ?)", (title, description,))
-            self.achievementsConnection.commit()
-
-        else:
-            """Create an item for classes"""
-            self.classesCursor.execute(
-                "INSERT INTO classes(title, description) VALUES(?, ?)", (title, description,))
-            self.classesConnection.commit()
+        cursor, connection = cursor_map.get(category, (self.classesCursor, self.classesConnection))
+        cursor.execute("INSERT INTO {}(title, description) VALUES(?, ?)".format(category.lower().replace(" ", "_")), (title, description))
+        connection.commit()
 
     def obtainItems(self, category):
+        cursor_map = {
+            'Sports': self.sportsCursor,
+            'Arts': self.artsCursor,
+            'Clubs': self.clubsCursor,
+            'Community Service': self.communityServiceCursor,
+            'Achievements': self.achievementsCursor,
+            'Classes': self.classesCursor
+        }
 
-        """Get items from the sports category"""
-        if category == 'Sports':
-
-            sportsItems = self.sportsCursor.execute(
-                "SELECT id, title, description FROM sports").fetchall()
-
-            return sportsItems
-
-            """Get items from the arts category"""
-        elif category == 'Arts':
-
-            artsItems = self.artsCursor.execute(
-                "SELECT id, title, description FROM arts").fetchall()
-
-            return artsItems   
-
-            """Get items from the arts clubs"""
-        elif category == 'Clubs':
-
-            clubItems = self.clubsCursor.execute(
-                "SELECT id, title, description FROM clubs").fetchall()
-
-            return clubItems   
-
-
-            """Get items from the arts community service"""
-        elif category == 'Community Service':
-
-            communityServiceItems = self.communityServiceCursor.execute(
-                "SELECT id, title, description FROM community_service").fetchall()
-
-            return communityServiceItems   
-
-
-            """Get items from the arts achievements"""
-        elif category == 'Achievements':
-
-            achievementsItems = self.achievementsCursor.execute(
-                "SELECT id, title, description FROM achievements").fetchall()
-
-            return achievementsItems   
-        
-
-            """Get items from the arts classes"""
-        else:
-
-            classItems = self.classesCursor.execute(
-                "SELECT id, title, description FROM classes").fetchall()
-
-            return classItems   
+        cursor = cursor_map.get(category, self.classesCursor)
+        items = cursor.execute("SELECT id, title, description FROM {}".format(category.lower().replace(" ", "_"))).fetchall()
+        return items
         
     def deleteItems(self, prim_key, category):
+        cursor_map = {
+            'Sports': (self.sportsCursor, self.sportsConnection),
+            'Arts': (self.artsCursor, self.artsConnection),
+            'Clubs': (self.clubsCursor, self.clubsConnection),
+            'Community Service': (self.communityServiceCursor, self.communityServiceConnection),
+            'Achievements': (self.achievementsCursor, self.achievementsConnection),
+            'Classes': (self.classesCursor, self.classesConnection)
+        }
 
-        if category == 'Sports':
-            """Delete a sports item"""
-            self.sportsCursor.execute("DELETE FROM sports WHERE id=?", (prim_key,))
-
-            self.sportsConnection.commit()
-
-        elif category == 'Arts':
-            """Delete a arts item"""
-            self.artsCursor.execute("DELETE FROM arts WHERE id=?", (prim_key,))
-
-            self.artsConnection.commit()
-
-        elif category == 'Clubs':
-            """Delete a clubs item"""
-            self.clubsCursor.execute("DELETE FROM clubs WHERE id=?", (prim_key,))
-
-            self.clubsConnection.commit()
-        
-        elif category == 'Community Service':
-            """Delete a community service item"""
-            self.communityServiceCursor.execute("DELETE FROM community_service WHERE id=?", (prim_key,))
-
-            self.communityServiceConnection.commit()
-
-        elif category == 'Achievements':
-            """Delete a achievements item"""
-            self.achievementsCursor.execute("DELETE FROM achievements WHERE id=?", (prim_key,))
-
-            self.achievementsConnection.commit()
-
-        else:
-            """Delete a class item"""
-            self.classesCursor.execute("DELETE FROM classes WHERE id=?", (prim_key,))
-
-            self.classesConnection.commit()
+        cursor, connection = cursor_map.get(category, (self.classesCursor, self.classesConnection))
+        cursor.execute("DELETE FROM {} WHERE id=?".format(category.lower().replace(" ", "_")), (prim_key,))
+        connection.commit()
 
     def updateItems(self, title, description, category, prim_key):
 
-        if category == 'Sports':
-            """Update a sports item"""
-            self.sportsCursor.execute("UPDATE sports SET title=?, description=? WHERE id=?", (title, description, prim_key))
+        cursor_map = {
+            'Sports': (self.sportsCursor, self.sportsConnection),
+            'Arts': (self.artsCursor, self.artsConnection),
+            'Clubs': (self.clubsCursor, self.clubsConnection),
+            'Community Service': (self.communityServiceCursor, self.communityServiceConnection),
+            'Achievements': (self.achievementsCursor, self.achievementsConnection),
+            'Classes': (self.classesCursor, self.classesConnection)
+        }
 
-            self.sportsConnection.commit()
+        cursor, connection = cursor_map[category]
+        cursor.execute("UPDATE {} SET title=?, description=? WHERE id=?".format(category.lower().replace(" ", "_")), (title, description, prim_key))
+        connection.commit()
 
-        elif category == 'Arts':
-            """Update a arts item"""
-            self.artsCursor.execute("UPDATE arts SET title=?, description=? WHERE id=?", (title, description, prim_key))
 
-            self.artsConnection.commit()
-
-        elif category == 'Clubs':
-            """Update a clubs item"""
-            self.clubsCursor.execute("UPDATE clubs SET title=?, description=? WHERE id=?", (title, description, prim_key))
-
-            self.clubsConnection.commit()
-        
-        elif category == 'Community Service':
-            """Update a community service item"""
-            self.communityServiceCursor.execute("UPDATE community_service SET title=?, description=? WHERE id=?", (title, description, prim_key))
-
-            self.communityServiceConnection.commit()
-
-        elif category == 'Achievements':
-            """Update a achievements item"""
-            self.achievementsCursor.execute("UPDATE achievements SET title=?, description=? WHERE id=?", (title, description, prim_key))
-
-            self.achievementsConnection.commit()
-
-        else:
-            """Update a class item"""
-            self.classesCursor.execute("UPDATE classes SET title=?, description=? WHERE id=?", (title, description, prim_key))
-
-            self.classesConnection.commit()
 
     def close_db_connection(self):
 
